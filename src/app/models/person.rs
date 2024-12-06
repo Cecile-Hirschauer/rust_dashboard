@@ -11,7 +11,7 @@ pub struct Person {
     #[validate(length(min = 1, message = "level is required"))]
     pub level: String,
     #[validate(range(min = 2000, max = 99999))]
-    pub compensation: u32,
+    pub compensation: i32,
     pub joined_date: String,
 }
 
@@ -21,7 +21,7 @@ impl Person {
         name: String,
         title: String,
         level: String,
-        compensation: u32,
+        compensation: i32,
         joined_date: String
     ) -> Person {
         Person {

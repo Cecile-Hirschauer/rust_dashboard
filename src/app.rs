@@ -1,6 +1,9 @@
+pub mod components;
 pub mod db;
 pub mod models;
 pub mod server_functions;
+pub mod pages;
+use pages::{ HomePage, TeamPage };
 
 use leptos::*;
 use leptos_meta::*;
@@ -17,33 +20,26 @@ pub fn App() -> impl IntoView {
         <Stylesheet id="leptos" href="/pkg/dashboard-app.css"/>
         <Link rel="tailwindcss" href="/style/input.css"/>
         // sets the document title
-        <Title text="Welcome to Leptos"/>
+        <Title text="Full-Stack dashboard App"/>
 
         // content for this welcome page
         <Router>
             <main>
                 <Routes>
-                    <Route path="" view=HomePage/>
+                    <Route path="/" view=move || {
+                        view! {
+                            <HomePage />
+                        }
+                    }/>
+                    <Route path="/team" view=move || {
+                        view! {
+                            <TeamPage />
+                        }
+                    }/>
                     <Route path="/*any" view=NotFound/>
                 </Routes>
             </main>
         </Router>
-    }
-}
-
-/// Renders the home page of your application.
-#[component]
-fn HomePage() -> impl IntoView {
-    // Creates a reactive value to update the button
-    let (count, set_count) = create_signal(0);
-    let on_click = move |_|
-        set_count.update(|count| {
-            *count += 1;
-        });
-
-    view! {
-        <h1>"Welcome to Leptos!"</h1>
-        <button class="bg-red-500 rounded-full text-white text-2xl p-3" on:click=on_click>"Click Me: " {count}</button>
     }
 }
 
