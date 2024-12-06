@@ -34,3 +34,26 @@ impl Person {
         }
     }
 }
+
+#[derive(Debug, Deserialize, Serialize, Eq, PartialEq, Clone, Validate)]
+pub struct AddPersonRequest {
+    #[validate(length(min = 1, message = "name is required"))]
+    pub name: String,
+    #[validate(length(min = 1, message = "title is required"))]
+    pub title: String,
+    #[validate(length(min = 1, message = "level is required"))]
+    pub level: String,
+    #[validate(range(min = 2000, max = 99999))]
+    pub compensation: i32,
+}
+
+impl AddPersonRequest {
+    pub fn new(name: String, title: String, level: String, compensation: i32) -> AddPersonRequest {
+        AddPersonRequest {
+            name,
+            title,
+            level,
+            compensation,
+        }
+    }
+}
