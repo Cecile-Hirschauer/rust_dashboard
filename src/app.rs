@@ -11,7 +11,7 @@ pub fn App() -> impl IntoView {
         // injects a stylesheet into the document <head>
         // id=leptos means cargo-leptos will hot-reload this stylesheet
         <Stylesheet id="leptos" href="/pkg/dashboard-app.css"/>
-
+        <Link rel="tailwindcss" href="/style/input.css"/>
         // sets the document title
         <Title text="Welcome to Leptos"/>
 
@@ -32,11 +32,14 @@ pub fn App() -> impl IntoView {
 fn HomePage() -> impl IntoView {
     // Creates a reactive value to update the button
     let (count, set_count) = create_signal(0);
-    let on_click = move |_| set_count.update(|count| *count += 1);
+    let on_click = move |_|
+        set_count.update(|count| {
+            *count += 1;
+        });
 
     view! {
         <h1>"Welcome to Leptos!"</h1>
-        <button on:click=on_click>"Click Me: " {count}</button>
+        <button class="bg-red-500 rounded-full text-white text-2xl p-3" on:click=on_click>"Click Me: " {count}</button>
     }
 }
 
