@@ -615,6 +615,10 @@ video {
   margin-top: -0.5rem;
 }
 
+.-mt-36 {
+  margin-top: -9rem;
+}
+
 .inline {
   display: inline;
 }
@@ -643,8 +647,16 @@ video {
   height: 100%;
 }
 
+.h-16 {
+  height: 4rem;
+}
+
 .w-full {
   width: 100%;
+}
+
+.w-96 {
+  width: 24rem;
 }
 
 .max-w-\[52rem\] {
@@ -661,6 +673,10 @@ video {
 
 .max-w-\[36rem\] {
   max-width: 36rem;
+}
+
+.max-w-\[61rem\] {
+  max-width: 61rem;
 }
 
 .flex-row {
@@ -814,6 +830,11 @@ video {
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .pt-8 {
