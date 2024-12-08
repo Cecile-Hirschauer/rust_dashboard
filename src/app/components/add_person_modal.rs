@@ -1,10 +1,15 @@
+use crate::app::components::{ Toast, ToastMessage, ToastMessageType };
 use crate::app::models::AddPersonRequest;
 use crate::app::server_functions::persons::add_person;
 use leptos::*;
 use validator::Validate;
 
 #[component]
-pub fn AddPersonModal(set_if_show_modal: WriteSignal<bool>) -> impl IntoView {
+pub fn AddPersonModal(
+    set_if_show_modal: WriteSignal<bool>,
+    set_if_show_added: WriteSignal<bool>,
+    set_toast_message: WriteSignal<ToastMessage>
+) -> impl IntoView {
     const INPUT_STYLE: &str =
         "w-full h-12 bg-[#333333] border-none rounded \
         px-6 py-4 text-white mt-4 \
@@ -49,6 +54,14 @@ pub fn AddPersonModal(set_if_show_modal: WriteSignal<bool>) -> impl IntoView {
                     match add_result {
                         Ok(_added_person) => {
                             set_if_show_modal(false);
+
+                            set_toast_message(
+                                ToastMessage::create(ToastMessageType::NewMemberAdded)
+                            );
+
+                            // setting this to true to make the toast
+                            // for "new member added" appear
+                            set_if_show_added(true);
                         }
                         Err(e) => println!("Error adding: {:?}", e),
                     }
@@ -60,6 +73,7 @@ pub fn AddPersonModal(set_if_show_modal: WriteSignal<bool>) -> impl IntoView {
             }
         }
     };
+
     view! {
         <div class="fixed inset-0 flex items-center justify-center bg-black/50">
             <div class="bg-[#222222] rounded-lg w-full max-w-[36rem]">

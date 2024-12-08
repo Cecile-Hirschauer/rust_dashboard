@@ -1,4 +1,4 @@
-use crate::app::components::{ AddPersonModal, Header };
+use crate::app::components::{ AddPersonModal, Header, Toast, ToastMessage };
 use leptos::*;
 
 #[component]
@@ -9,6 +9,9 @@ pub fn TeamPage() -> impl IntoView {
 
     let (if_show_modal, set_if_show_modal) = create_signal(false);
 
+    let (if_show_toast, set_if_show_toast) = create_signal(false);
+    let (toast_message, set_toast_message) = create_signal(ToastMessage::new());
+
     let on_click = move |_| {
         set_if_show_modal(!if_show_modal());
     };
@@ -16,12 +19,20 @@ pub fn TeamPage() -> impl IntoView {
     view! {
         <div class="w-full max-w-[64rem] mx-auto items-center justify-center align-center">
             <Header/>
+
+           <Toast
+                toast_message
+                if_appear=if_show_toast
+                set_if_appear=set_if_show_toast
+            />
             
             <div class="mt-20">
                 <div class="text-white flex flex-col w-full mx-auto items-center justify-center">
                     <Show when=move || { if_show_modal() }>
                         <AddPersonModal
                             set_if_show_modal
+                            set_if_show_added=set_if_show_toast
+                            set_toast_message
                         />
                     </Show>
                     <div class="flex flex-row w-full max-w-[52rem]">
