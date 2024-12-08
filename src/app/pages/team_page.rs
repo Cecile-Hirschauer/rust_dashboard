@@ -10,9 +10,7 @@ pub fn TeamPage() -> impl IntoView {
     let (if_show_modal, set_if_show_modal) = create_signal(false);
 
     let on_click = move |_| {
-        set_if_show_modal.update(|value| {
-            *value = !*value;
-        });
+        set_if_show_modal(!if_show_modal());
     };
 
     view! {
@@ -20,13 +18,10 @@ pub fn TeamPage() -> impl IntoView {
             <Header/>
             
             <div class="mt-20">
-                <div class="text-white flex flex-col w-full mx-auto items-center justify-center z-25">
-                    <Show
-                        when=move || if_show_modal.get()
-                        fallback=|| view! { <div></div> }
-                    >
+                <div class="text-white flex flex-col w-full mx-auto items-center justify-center">
+                    <Show when=move || { if_show_modal() }>
                         <AddPersonModal
-                            set_if_show_modal=set_if_show_modal
+                            set_if_show_modal
                         />
                     </Show>
                     <div class="flex flex-row w-full max-w-[52rem]">
@@ -39,13 +34,6 @@ pub fn TeamPage() -> impl IntoView {
                             "Add"
                         </button>
                     </div>
-                    <Suspense fallback=move || {
-                        view! { <p>"Loading..."</p> }
-                    }>
-                        <div class="flex flex-col w-full max-w-[52rem] mt-6">
-                            
-                        </div>
-                    </Suspense>
                 </div>
             </div>
         </div>
